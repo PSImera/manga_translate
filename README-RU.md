@@ -20,7 +20,7 @@ OpenAI-совместимый эндпоинт). Docker для самого пр
 
 ---
 
-![UI](images\UI.png)
+![UI](images/UI.png)
 
 ## Возможности
 
