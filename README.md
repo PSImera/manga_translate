@@ -19,6 +19,8 @@ A learning project for [Deep Learning School](https://github.com/DeepLearningSch
 
 ---
 
+![UI](images\UI.png)
+
 ## Features
 
 ### Quick start
