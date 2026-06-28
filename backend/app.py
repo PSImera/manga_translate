@@ -201,14 +201,18 @@ def _parse_context(context: Optional[str]) -> Optional[List[List[dict]]]:
 
 
 def _mask_params(meta: dict, default_expand: float) -> MaskParams:
+    def _get(key, default):
+        v = meta.get(key)
+        return v if v is not None else default
+
     return MaskParams(
-        expand=meta.get("mask_expand", default_expand),
-        grow=meta.get("grow", config.INPAINT_GROW),
-        inset=meta.get("inset", config.INPAINT_INSET),
-        thick_cap=meta.get("thick_cap", config.INPAINT_THICK_CAP),
-        min_area=meta.get("min_area", config.INPAINT_MIN_AREA),
-        center_priority=meta.get("center_priority", config.INPAINT_CENTER_PRIORITY),
-        center_radius=meta.get("center_radius", config.INPAINT_CENTER_RADIUS),
+        expand=_get("mask_expand", default_expand),
+        grow=_get("grow", config.INPAINT_GROW),
+        inset=_get("inset", config.INPAINT_INSET),
+        thick_cap=_get("thick_cap", config.INPAINT_THICK_CAP),
+        min_area=_get("min_area", config.INPAINT_MIN_AREA),
+        center_priority=_get("center_priority", config.INPAINT_CENTER_PRIORITY),
+        center_radius=_get("center_radius", config.INPAINT_CENTER_RADIUS),
     )
 
 
