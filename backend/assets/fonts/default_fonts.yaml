@@ -1,0 +1,21 @@
+# Default font per target language.
+# Used when the user switches target language and the current font doesn't support it.
+# Font names must match family names in font_languages.json.
+
+en: BebasNeue
+ru: BebasNeue
+uk: ComicRelief
+de: BebasNeue
+fr: BebasNeue
+pt: BebasNeue
+it: BebasNeue
+es: BebasNeue
+pl: BebasNeue
+sv: BebasNeue
+hu: BebasNeue
+ja: NotoSansJP
+zh: NotoSansSC
+ko: NotoSansKR
+ar: NotoNaskhArabic
+he: NotoSansHebrew
+hi: NotoSansDevanagari

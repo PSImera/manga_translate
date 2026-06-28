@@ -1,0 +1,59 @@
+[project]
+name = "manga-translate"
+version = "0.1.0"
+description = "Manga translation with neural networks: bubble detection -> OCR -> inpaint -> LLM translation -> render"
+requires-python = "==3.10.*"
+dependencies = [
+    # Detection
+    "ultralytics==8.4.75",
+    # Inpaint (simple-lama requires non-headless opencv-python)
+    "simple-lama-inpainting==0.1.2",
+    "opencv-python==4.11.0.86",
+    # Translation (LLM via LangChain + OpenAI wrapper)
+    "langchain==1.3.11",
+    "langchain-openai==1.3.3",
+    "openai==2.43.0",
+    # Render
+    "pillow",
+    # Backend
+    "fastapi==0.138.0",
+    "uvicorn==0.49.0",
+    "python-multipart==0.0.32",
+    # Config / misc
+    "python-dotenv==1.2.2",
+    "numpy<2",
+    # PyTorch (CUDA build via index below)
+    "torch",
+    "torchvision",
+    "nvidia-cudnn-cu12>=9.9,<9.10 ; sys_platform == 'win32'",
+    "manga-ocr>=0.1.10",
+    "transformers<5",
+    "pypdfium2>=5.10.1",
+    # OCR for European languages (Japanese stays on manga-ocr)
+    "easyocr==1.7.2",
+    "arabic-reshaper>=3.0.1",
+    "python-bidi>=0.6.10",
+]
+
+# Alternative LLM providers. The default path (openai/local model, and grok which is
+# OpenAI-compatible) works on base langchain-openai and needs no extra.
+# Install the needed provider: `uv sync --extra anthropic` or `uv sync --extra google`.
+[project.optional-dependencies]
+anthropic = ["langchain-anthropic>=1.0"]
+google = ["langchain-google-genai>=3.0"]
+
+[tool.uv]
+# easyocr pulls opencv-python-headless, which installs the same cv2 module as
+# opencv-python (required by simple-lama, non-headless). Keep a single cv2:
+# suppress headless with a never-true marker so easyocr uses the already-installed one.
+override-dependencies = ["opencv-python-headless; sys_platform == 'never'"]
+
+# torch/torchvision come from the CUDA index, not PyPI
+[tool.uv.sources]
+torch = { index = "pytorch-cu126" }
+torchvision = { index = "pytorch-cu126" }
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true

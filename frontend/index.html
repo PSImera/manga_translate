@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manga Translate</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="scripts/i18n.js"></script>
+  <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+  <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://unpkg.com/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <header id="topbar">
+    <div class="row">
+      <h1><img src="favicon.svg" class="title-icon" alt="" />Manga Translate</h1>
+      <!-- выбор языка интерфейса (справа от заголовка) -->
+      <select id="ui-lang" class="ui-lang" data-i18n-title="lang.uiTitle">
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+      </select>
+      <span id="backend-status" class="muted"></span>
+      <span class="status-sep">|</span>
+      <!-- живой статус «что сейчас происходит» (моноширинный, под консоль);
+           клик открывает консоль с подробным журналом внизу страницы -->
+      <button type="button" id="status-bar" class="status-bar" data-i18n-title="status.openConsole">
+        <span id="status-text" class="status-idle" data-i18n="status.idle">▸ консоль</span>
+      </button>
+    </div>
+
+    <div class="row controls">
+      <!-- язык оригинала первым: ja → manga-ocr, европейские → EasyOCR.
+           Кастомный список с флагами (нативный select на Windows их не рендерит) -->
+      <div id="src-lang-select" class="lang-select" data-i18n-title="lang.sourceTitle">
+        <button type="button" id="src-lang-btn" class="btn lang-btn" aria-haspopup="listbox" aria-expanded="false"></button>
+        <div id="src-lang-menu" class="lang-menu hidden" role="listbox"></div>
+      </div>
+
+      <span class="sep"></span>
+
+      <label class="btn file-btn" data-i18n-title="btn.uploadTitle">
+        <span data-i18n="btn.upload">＋ Загрузить</span>
+        <input type="file" id="file-input" accept="image/*,application/pdf" multiple hidden />
+      </label>
+      <button id="clear-all" class="btn icon" data-i18n-title="btn.clearAllTitle">🗑</button>
+
+      <span class="sep"></span>
+
+      <!-- рамки: кнопка-выключатель раскрывает набор управления рамками (маска вложена внутрь) -->
+      <button id="frame-toggle" class="btn toggle" data-i18n="btn.frames">⬚ Рамки</button>
+      <span id="frame-tools" class="frame-tools hidden">
+        <!-- передетекция страницы (перед порогом детекции) -->
+        <button id="redetect" class="btn icon" data-i18n-title="btn.redetectTitle">⟳</button>
+
+        <!-- порог детекции (порог слева, без подписи, тултип) -->
+        <label class="slider-inline" data-i18n-title="mask.confTitle">◎
+          <input type="range" id="conf" min="0.05" max="0.9" step="0.05" value="0.25" />
+          <output id="conf-out">0.25</output>
+        </label>
+
+        <!-- рамки: компактные действия -->
+        <button id="add-mode" class="btn icon toggle" data-i18n-title="btn.addTitle">＋</button>
+        <button id="del-btn" class="btn icon" data-i18n-title="btn.delTitle">－</button>
+        <button id="show-expand-btn" class="btn icon toggle frame-icon" data-i18n-title="btn.showExpandTitle"></button>
+        <label class="slider-inline" data-i18n-title="mask.inpaintPadTitle">⬚
+          <input type="range" id="inpaint-pad" min="0" max="100" step="5" value="0" />
+          <output id="inpaint-pad-out">0%</output>
+        </label>
+        <label class="palette-wrap" data-i18n-title="color.frameTitle">
+          <button type="button" id="frame-color-btn" class="color-btn"></button>
+        </label>
+
+        <span class="sep"></span>
+
+        <!-- маска: кнопка-выключатель раскрывает инлайн-набор (и показывает оверлей маски);
+             «Доп. параметры» — выпадающее меню параметров детекции -->
+        <button id="mask-toggle" class="btn toggle" data-i18n="btn.mask">🖌 Маска</button>
+        <span id="mask-tools" class="mask-tools hidden">
+        <!-- отделение 1: ручное редактирование маски (кисть/ластик/очистить/размер) -->
+        <span class="mask-group">
+          <button id="brush-paint" class="btn small" data-i18n="btn.brushPaint" data-i18n-title="btn.brushPaintTitle">🖌 Кисть</button>
+          <button id="brush-erase" class="btn small" data-i18n="btn.brushErase" data-i18n-title="btn.brushEraseTitle">Ластик</button>
+          <button id="brush-clear" class="btn small" data-i18n="btn.brushClear" data-i18n-title="btn.brushClearTitle">Очистить</button>
+          <label data-i18n-title="mask.brushSizeTitle">⌀
+            <input type="range" id="brush-size" min="3" max="120" step="1" value="20" />
+            <output id="brush-size-out">20</output>
+          </label>
+        </span>
+        <!-- отделение 2: параметры детекции, цвет и непрозрачность маски -->
+        <span class="mask-group">
+          <details class="popmenu" id="mask-det">
+            <summary class="btn small gear" data-i18n-title="mask.gearTitle">⚙</summary>
+          <div class="popmenu-body">
+            <div class="md-row md-select" id="lama-model-row">
+              <div class="md-title" data-i18n="param.lamaModel">Модель</div>
+              <div class="md-ctl"><select id="lama-model"></select></div>
+            </div>
+            <div class="md-row md-slider">
+              <div class="md-title" data-i18n="param.maskExpand">Расширение по штриху</div>
+              <div class="md-ctl">
+                <input type="range" id="mask-expand" min="0" max="100" step="5" value="20" />
+                <output id="mask-expand-out">20%</output>
+                <span class="hint" data-tip="expand">?</span>
+                <button type="button" class="md-reset" data-reset="maskExpand" data-i18n-title="btn.resetDefault">↺</button>
+              </div>
+            </div>
+            <div class="md-row md-slider">
+              <div class="md-title" data-i18n="param.grow">Расширение наружу</div>
+              <div class="md-ctl">
+                <input type="range" id="grow" min="0" max="40" step="1" value="3" />
+                <output id="grow-out">3px</output>
+                <span class="hint" data-tip="grow">?</span>
+                <button type="button" class="md-reset" data-reset="grow" data-i18n-title="btn.resetDefault">↺</button>
+              </div>
+            </div>
+            <div class="md-row md-slider">
+              <div class="md-title" data-i18n="param.inset">Отступ внутрь рамки</div>
+              <div class="md-ctl">
+                <input type="range" id="inset" min="0" max="10" step="1" value="2" />
+                <output id="inset-out">2px</output>
+                <span class="hint" data-tip="inset">?</span>
+                <button type="button" class="md-reset" data-reset="inset" data-i18n-title="btn.resetDefault">↺</button>
+              </div>
+            </div>
+            <div class="md-row md-slider">
+              <div class="md-title" data-i18n="param.minArea">Мин. размер пятна</div>
+              <div class="md-ctl">
+                <input type="range" id="min-area" min="1" max="40" step="1" value="4" />
+                <output id="min-area-out">4</output>
+                <span class="hint" data-tip="minArea">?</span>
+                <button type="button" class="md-reset" data-reset="minArea" data-i18n-title="btn.resetDefault">↺</button>
+              </div>
+            </div>
+            <div class="md-row md-check">
+              <label class="check"><span data-i18n="param.centerPriority">Приоритет центра</span> <input type="checkbox" id="center-priority" checked /></label>
+              <span class="hint" data-tip="centerPriority">?</span>
+              <button type="button" class="md-reset" data-reset="centerPriority" data-i18n-title="btn.resetDefault">↺</button>
+            </div>
+            <div class="md-row md-slider" data-ctl="center-radius">
+              <div class="md-title" data-i18n="param.centerRadius">Радиус центра</div>
+              <div class="md-ctl">
+                <input type="range" id="center-radius" min="2" max="30" step="1" value="10" />
+                <output id="center-radius-out">10%</output>
+                <span class="hint" data-tip="centerRadius">?</span>
+                <button type="button" class="md-reset" data-reset="centerRadius" data-i18n-title="btn.resetDefault">↺</button>
+              </div>
+            </div>
+          </div>
+          </details>
+          <label class="palette-wrap" data-i18n-title="color.maskTitle">
+            <button type="button" id="mask-color-btn" class="color-btn"></button>
+          </label>
+          <label data-i18n-title="mask.opacityTitle">◍
+            <input type="range" id="mask-opacity" min="0" max="100" step="1" value="60" />
+            <output id="mask-opacity-out">60</output>
+          </label>
+        </span>
+        </span>
+      </span>
+    </div>
+
+    <div class="row controls">
+      <!-- язык перевода во втором ряду, под языком оригинала -->
+      <div id="lang-select" class="lang-select" data-i18n-title="lang.targetTitle">
+        <button type="button" id="lang-btn" class="btn lang-btn" aria-haspopup="listbox" aria-expanded="false"></button>
+        <div id="lang-menu" class="lang-menu hidden" role="listbox"></div>
+      </div>
+      <span class="sep"></span>
+      <!-- порядок чтения баблов: стратегия (пер-страница) + ручная нумерация прокликиванием -->
+      <div id="order-tools" class="order-tools" data-i18n-title="order.toolsTitle">
+        <span class="ot-label" data-i18n="order.label">Порядок:</span>
+        <select id="order-strategy" class="order-strategy" data-i18n-title="order.strategyTitle">
+          <option value="" data-i18n="order.auto">Авто (по языку)</option>
+          <option value="rows-rtl" data-i18n="order.rowsRtl">Строки, справа-налево</option>
+          <option value="rows-ltr" data-i18n="order.rowsLtr">Строки, слева-направо</option>
+          <option value="cols-ltr" data-i18n="order.colsLtr">Колонки, слева-направо</option>
+          <option value="cols-rtl" data-i18n="order.colsRtl">Колонки, справа-налево</option>
+        </select>
+        <label class="ot-check" data-i18n-title="order.individualTitle">
+          <input type="checkbox" id="order-individual"> <span data-i18n="order.individual">только эта стр.</span>
+        </label>
+        <button type="button" id="order-number" class="btn small" data-i18n="order.number" data-i18n-title="order.numberTitle">① Прокликать</button>
+      </div>
+      <span class="sep"></span>
+      <!-- шрифт перевода по умолчанию + цвет текста (на бабл переопределяется в блоке текстов) -->
+      <div id="font-tools" class="font-tools" data-i18n-title="font.toolsTitle">
+        <span class="ot-label" data-i18n="font.label">Шрифт:</span>
+        <select id="global-font" class="tx-font" data-i18n-title="font.globalTitle"></select>
+        <!-- вес, курсив и прочие дефолты — в выпадающем меню -->
+        <details class="popmenu" id="font-det">
+          <summary class="btn small gear" data-i18n-title="font.gearTitle">Aa</summary>
+          <div class="popmenu-body">
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="font.weightLabel">Насыщенность</span>
+              <select id="global-font-weight" class="global-weight" data-i18n-title="font.weightTitle"></select>
+              <button type="button" id="global-font-italic" class="btn small tx-italic" data-i18n-title="font.italicTitle">I</button>
+            </div>
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="font.sizeLabel">Размер</span>
+              <input type="number" id="global-size" class="global-size tx-num" data-i18n-title="font.globalSizeTitle">
+            </div>
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="font.marginLabel">Отступ</span>
+              <select id="global-margin" class="global-size" data-i18n-title="font.globalMarginTitle"></select>
+            </div>
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="font.alignLabel">Выравнивание</span>
+              <select id="global-align" class="global-size" data-i18n-title="font.globalAlignTitle"></select>
+            </div>
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="font.valignLabel">По вертикали</span>
+              <select id="global-valign" class="global-size" data-i18n-title="font.globalValignTitle"></select>
+            </div>
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="vertical.label">Столбиком</span>
+              <label class="tx-vert check" data-i18n-title="font.globalVerticalTitle">
+                <input type="checkbox" id="global-vertical">
+              </label>
+            </div>
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="font.colorLabel">Цвет</span>
+              <button type="button" id="global-color" class="btn color-btn" data-i18n-title="font.globalColorTitle"></button>
+            </div>
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="stroke.label">Обводка</span>
+              <label class="tx-vert check" data-i18n-title="stroke.globalToggleTitle">
+                <input type="checkbox" id="global-stroke">
+              </label>
+            </div>
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="stroke.widthLabel">Толщина обводки</span>
+              <select id="global-stroke-width" class="global-size" data-i18n-title="stroke.globalWidthTitle"></select>
+            </div>
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="stroke.colorLabel">Цвет обводки</span>
+              <button type="button" id="global-stroke-color" class="btn color-btn" data-i18n-title="stroke.globalColorTitle"></button>
+            </div>
+          </div>
+        </details>
+      </div>
+      <span class="sep"></span>
+      <!-- перевод: общий блок с подписью, три кнопки по возрастанию обобщения справа-налево -->
+      <div id="translate-tools" class="translate-tools" data-i18n-title="translate.toolsTitle">
+        <span class="ot-label" data-i18n="translate.label">Перевести:</span>
+        <button id="translate-all" class="btn primary" data-i18n="translate.all" data-i18n-title="translate.allTitle">Всё</button>
+        <button id="translate-page" class="btn primary" data-i18n="translate.page" data-i18n-title="translate.pageTitle">Страницу</button>
+        <button id="translate-bubble" class="btn primary" data-i18n="translate.bubble" data-i18n-title="translate.bubbleTitle" disabled>Бабл</button>
+        <!-- доп. настройки контекста LLM (аналог #font-det / #mask-det) -->
+        <details class="popmenu" id="translate-det">
+          <summary class="btn small gear" data-i18n-title="translate.gearTitle">⚙</summary>
+          <div class="popmenu-body">
+            <div class="md-row fm-row">
+              <span class="md-title" data-i18n="ctx.passLabel">Передавать контекст</span>
+              <label class="tx-vert check" data-i18n-title="ctx.passTitle">
+                <input type="checkbox" id="ctx-pass" checked />
+              </label>
+            </div>
+            <div class="md-row fm-row ctx-sub">
+              <span class="md-title" data-i18n="ctx.windowLabel">Окно «Перевести все» (стр.)</span>
+              <input type="number" id="ctx-window" class="ctx-num" min="0" max="20" value="8" data-i18n-title="ctx.windowTitle" />
+            </div>
+            <div class="md-row fm-row ctx-sub">
+              <span class="md-title" data-i18n="ctx.pagesLabel">Контекст страницы (стр.)</span>
+              <input type="number" id="ctx-pages" class="ctx-num" min="0" max="5" value="1" data-i18n-title="ctx.pagesTitle" />
+            </div>
+            <div class="md-row fm-row ctx-sub">
+              <span class="md-title" data-i18n="ctx.bubblesLabel">Контекст бабла (реплик)</span>
+              <input type="number" id="ctx-bubbles" class="ctx-num" min="0" max="30" value="3" data-i18n-title="ctx.bubblesTitle" />
+            </div>
+          </div>
+        </details>
+      </div>
+      <span class="sep"></span>
+      <button id="download" class="btn" data-i18n="btn.download">⬇ Скачать</button>
+      <button id="download-all" class="btn" data-i18n="btn.downloadAll">⬇ Скачать всё (zip)</button>
+      <button id="download-pdf" class="btn" data-i18n="btn.downloadPdf">⬇ Скачать всё (PDF)</button>
+    </div>
+  </header>
+
+  <div id="thumbs"></div>
+  <!-- тонкая полоса-тумблер: сворачивает очередь страниц вверх, освобождая место для холста -->
+  <button id="thumbs-toggle" class="thumbs-toggle" type="button" data-i18n-title="queue.toggleTitle"></button>
+
+  <main id="viewer">
+    <!-- выдвигающийся слева блок индивидуальных настроек выбранной рамки (сворачивается стрелкой);
+         в свёрнутом виде не показывается при клике на бабл — только если раскрыть вручную -->
+    <aside id="bubble-panel" class="collapsed">
+      <div id="bp-scroll" class="bp-scroll">
+        <h3 class="bp-heading"><span data-i18n="bp.title">Рамка</span> <span id="bp-num">—</span></h3>
+        <p id="bp-empty" class="bp-empty" data-i18n="bp.selectHint">Выберите рамку на изображении, чтобы настроить её параметры.</p>
+        <div class="bp-body" id="bp-body">
+          <div class="bp-row bp-lang is-default" data-param="ocrLang">
+            <div class="bp-title" data-i18n="param.ocrLang">Язык оригинала</div>
+            <div class="bp-ctl">
+              <div id="bp-lang-select" class="lang-select">
+                <button type="button" id="bp-lang-btn" class="btn lang-btn" aria-haspopup="listbox" aria-expanded="false"></button>
+                <div id="bp-lang-menu" class="lang-menu hidden" role="listbox"></div>
+              </div>
+              <button type="button" class="bp-reset" data-param="ocrLang" data-i18n-title="btn.resetDefault">↺</button>
+            </div>
+          </div>
+          <div class="bp-row bp-slider is-default" data-param="maskExpand">
+            <div class="bp-title" data-i18n="param.maskExpand">Расширение по штриху</div>
+            <div class="bp-ctl">
+              <input type="range" id="bp-expand" min="0" max="100" step="5" value="20" />
+              <output id="bp-expand-out">20%</output>
+              <span class="hint" data-tip="expand">?</span>
+              <button type="button" class="bp-reset" data-param="maskExpand" data-i18n-title="btn.resetDefault">↺</button>
+            </div>
+          </div>
+          <div class="bp-row bp-slider is-default" data-param="grow">
+            <div class="bp-title" data-i18n="param.grow">Расширение наружу</div>
+            <div class="bp-ctl">
+              <input type="range" id="bp-grow" min="0" max="40" step="1" value="3" />
+              <output id="bp-grow-out">3px</output>
+              <span class="hint" data-tip="grow">?</span>
+              <button type="button" class="bp-reset" data-param="grow" data-i18n-title="btn.resetDefault">↺</button>
+            </div>
+          </div>
+          <div class="bp-row bp-slider is-default" data-param="inset">
+            <div class="bp-title" data-i18n="param.inset">Отступ внутрь рамки</div>
+            <div class="bp-ctl">
+              <input type="range" id="bp-inset" min="0" max="10" step="1" value="2" />
+              <output id="bp-inset-out">2px</output>
+              <span class="hint" data-tip="inset">?</span>
+              <button type="button" class="bp-reset" data-param="inset" data-i18n-title="btn.resetDefault">↺</button>
+            </div>
+          </div>
+          <div class="bp-row bp-slider is-default" data-param="minArea">
+            <div class="bp-title" data-i18n="param.minArea">Мин. размер пятна</div>
+            <div class="bp-ctl">
+              <input type="range" id="bp-min-area" min="1" max="40" step="1" value="4" />
+              <output id="bp-min-area-out">4</output>
+              <span class="hint" data-tip="minArea">?</span>
+              <button type="button" class="bp-reset" data-param="minArea" data-i18n-title="btn.resetDefault">↺</button>
+            </div>
+          </div>
+          <div class="bp-row bp-check is-default" data-param="centerPriority">
+            <label class="check"><span data-i18n="param.centerPriority">Приоритет центра</span> <input type="checkbox" id="bp-center-priority" /></label>
+            <span class="hint" data-tip="centerPriority">?</span>
+            <button type="button" class="bp-reset" data-param="centerPriority" data-i18n-title="btn.resetDefault">↺</button>
+          </div>
+          <div class="bp-row bp-slider is-default" data-param="centerRadius" data-ctl="center-radius">
+            <div class="bp-title" data-i18n="param.centerRadius">Радиус центра</div>
+            <div class="bp-ctl">
+              <input type="range" id="bp-center-radius" min="2" max="30" step="1" value="10" />
+              <output id="bp-center-radius-out">10%</output>
+              <span class="hint" data-tip="centerRadius">?</span>
+              <button type="button" class="bp-reset" data-param="centerRadius" data-i18n-title="btn.resetDefault">↺</button>
+            </div>
+          </div>
+          <div class="bp-row bp-slider is-default" data-param="inpaintPad">
+            <div class="bp-title" data-i18n="param.inpaintPad">Расширение области инпейнта</div>
+            <div class="bp-ctl">
+              <input type="range" id="bp-inpaint-pad" min="0" max="100" step="5" value="0" />
+              <output id="bp-inpaint-pad-out">0%</output>
+              <span class="hint" data-tip="inpaintPad">?</span>
+              <button type="button" class="bp-reset" data-param="inpaintPad" data-i18n-title="btn.resetDefault">↺</button>
+            </div>
+          </div>
+          <div class="bp-row bp-check is-default" data-param="showExpand">
+            <label class="check"><span data-i18n="param.showExpand">рамка расширения</span> <input type="checkbox" id="bp-show-expand" /></label>
+            <button type="button" class="bp-reset" data-param="showExpand" data-i18n-title="btn.resetDefault">↺</button>
+          </div>
+          <div class="bp-row bp-check is-default" data-param="showMask">
+            <label class="check"><span data-i18n="param.showMask">маска заливки</span> <input type="checkbox" id="bp-show-mask" /></label>
+            <button type="button" class="bp-reset" data-param="showMask" data-i18n-title="btn.resetDefault">↺</button>
+          </div>
+          <div class="bp-row is-default" data-param="color">
+            <label class="palette-wrap"><span data-i18n="param.color">Цвет рамки</span>
+              <button type="button" id="bp-color-btn" class="color-btn"></button>
+            </label>
+            <button type="button" class="bp-reset" data-param="color" data-i18n-title="btn.resetDefault">↺</button>
+          </div>
+          <div class="bp-row bp-action" id="bp-clear-brush-row">
+            <span class="bp-action-info" data-i18n="bp.clearBrushInfo">Стереть ручную правку маски (кисть/ластик) в пределах этой рамки</span>
+            <button type="button" id="bp-clear-brush" class="bp-reset" data-i18n-title="bp.clearBrushTitle">↺</button>
+          </div>
+        </div>
+      </div>
+      <button id="bp-toggle" class="bp-toggle" data-i18n-title="bp.toggleTitle">›</button>
+    </aside>
+
+    <button id="prev" class="nav" data-i18n-title="nav.prev">‹</button>
+    <div id="stage-wrap">
+      <div id="view-toggle" class="hidden">
+        <div class="vt-left">
+          <button id="zoom-out" class="btn small icon" data-i18n-title="zoom.out">－</button>
+          <button id="zoom-reset" class="btn small" data-i18n-title="zoom.reset">100%</button>
+          <button id="zoom-in" class="btn small icon" data-i18n-title="zoom.in">＋</button>
+          <span class="vt-sep"></span>
+          <button id="show-original" class="btn small active" data-i18n="view.original">Оригинал</button>
+          <button id="show-result" class="btn small" data-i18n="view.result">Результат</button>
+        </div>
+        <span id="page-name" class="vt-name muted"></span>
+      </div>
+
+      <div id="stage-container"></div>
+      <div id="brush-cursor" class="hidden"></div>
+      <!-- подсказка пустого состояния — абсолютный оверлей по центру тёмной области
+           (не флекс-потомок: не зависит от остатков Konva-сцены после очистки очереди) -->
+      <p id="empty-hint" class="muted" data-i18n="empty.hint">Загрузите страницы или PDF, чтобы начать.</p>
+    </div>
+    <button id="next" class="nav" data-i18n-title="nav.next">›</button>
+
+    <!-- выпадающий справа блок с текстами и переводом, сворачивается стрелкой -->
+    <aside id="texts-panel">
+      <button id="texts-toggle" class="texts-toggle" data-i18n-title="texts.toggleTitle">›</button>
+      <div id="texts"></div>
+    </aside>
+  </main>
+
+  <!-- подтверждение очистки очереди (маленький поповер у кнопки 🗑) -->
+  <div id="clear-confirm" class="confirm-pop hidden">
+    <p data-i18n="clear.confirmText">Очистить всю очередь? Все загруженные страницы, рамки, маски и переводы будут удалены — прогресс не восстановить.</p>
+    <div class="confirm-actions">
+      <button type="button" id="clear-cancel" class="btn small" data-i18n="btn.cancel">Отмена</button>
+      <button type="button" id="clear-confirm-btn" class="btn small danger" data-i18n="btn.clear">Очистить</button>
+    </div>
+  </div>
+
+  <!-- универсальный HSV-выбор цвета (квадрат насыщенность/яркость + ползунок hue) -->
+  <div id="color-picker" class="hidden">
+    <div class="cp-top">
+      <div id="cp-sv" class="cp-sv"><div id="cp-sv-cursor" class="cp-sv-cursor"></div></div>
+      <div id="cp-hue" class="cp-hue"><div id="cp-hue-cursor" class="cp-hue-cursor"></div></div>
+    </div>
+    <div class="cp-foot">
+      <span id="cp-swatch" class="cp-swatch"></span>
+      <input type="text" id="cp-hex" class="cp-hex" maxlength="7" spellcheck="false" />
+      <button type="button" id="cp-eyedrop" class="cp-eyedrop" data-i18n-title="color.eyedropTitle">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/>
+          <path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- консоль подробных логов (раскрывается снизу по клику на статус-бар) -->
+  <div id="console-panel" class="console-panel hidden">
+    <div class="console-head">
+      <span class="console-title" data-i18n="console.title">Консоль</span>
+      <span class="console-spacer"></span>
+      <button type="button" id="console-stop" class="btn small danger" data-i18n="btn.stop" data-i18n-title="btn.stopTitle">Стоп</button>
+      <button type="button" id="cache-clear" class="btn small" data-i18n="btn.clearCache" data-i18n-title="btn.clearCacheTitle">Сбросить кэш</button>
+      <button type="button" id="console-clear" class="btn small" data-i18n="btn.clear">Очистить</button>
+      <button type="button" id="console-close" class="btn small icon" data-i18n-title="btn.closeTitle">×</button>
+    </div>
+    <div id="console-log" class="console-log"></div>
+  </div>
+
+  <!-- порядок важен: core.js (константы/состояние/DOM/настройки) грузится первым,
+       app.js последним (в нём boot()); между ними — модули по доменам. Все они —
+       обычные скрипты с общей глобальной областью (не ES-модули). -->
+  <script src="scripts/core.js"></script>
+  <script src="scripts/reading-order.js"></script>
+  <script src="scripts/controls.js"></script>
+  <script src="scripts/pages.js"></script>
+  <script src="scripts/viewer.js"></script>
+  <script src="scripts/stage.js"></script>
+  <script src="scripts/bubble-panel.js"></script>
+  <script src="scripts/color-picker.js"></script>
+  <script src="scripts/mask.js"></script>
+  <script src="scripts/persistence.js"></script>
+  <script src="scripts/translate.js"></script>
+  <script src="scripts/texts.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+.venv/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Модели и веса
+# Базовые веса ultralytics скачиваются в корень — не версионируем
+/*.pt
+# Обученные веса детектора отслеживаем через Git LFS (см. .gitattributes)
+!models/yolo/*.pt
+
+# uv
+.uv/
+
+# Шрифты
+backend/assets/fonts/*
+!backend/assets/fonts/LICENSES.md
+!backend/assets/fonts/default_fonts.yaml
+!backend/assets/fonts/BebasNeue/
+!backend/assets/fonts/ComicRelief/
+!backend/assets/fonts/Montserrat/
+!backend/assets/fonts/Mulish/
+!backend/assets/fonts/NotoNaskhArabic.ttf
+!backend/assets/fonts/NotoSansDevanagari/
+!backend/assets/fonts/NotoSansHebrew.ttf
+!backend/assets/fonts/NotoSansJP/
+!backend/assets/fonts/NotoSansKR/
+!backend/assets/fonts/NotoSansSC/
+!backend/assets/fonts/Oswald/
+!backend/assets/fonts/PTSerif/
+!backend/assets/fonts/Raleway/

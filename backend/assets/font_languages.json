@@ -1,0 +1,1097 @@
+{
+  "BebasNeue": {
+    "langs": [
+      "en",
+      "ru",
+      "de",
+      "fr",
+      "pt",
+      "it",
+      "es",
+      "pl",
+      "sv",
+      "hu"
+    ],
+    "variant_langs": {
+      "Bold": [
+        "en",
+        "ru",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Book": [
+        "en",
+        "ru",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Light": [
+        "en",
+        "ru",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Regular": [
+        "en",
+        "ru",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Thin": [
+        "en",
+        "ru",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ]
+    },
+    "variants": {
+      "Bold": "BebasNeue/BebasNeue Bold.ttf",
+      "Book": "BebasNeue/BebasNeue Book.ttf",
+      "Light": "BebasNeue/BebasNeue Light.ttf",
+      "Regular": "BebasNeue/BebasNeue Regular.ttf",
+      "Thin": "BebasNeue/BebasNeue Thin.ttf"
+    }
+  },
+  "ComicRelief": {
+    "langs": [
+      "en",
+      "ru",
+      "uk",
+      "de",
+      "fr",
+      "pt",
+      "it",
+      "es",
+      "pl",
+      "sv",
+      "hu"
+    ],
+    "variant_langs": {
+      "Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Regular": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ]
+    },
+    "variants": {
+      "Bold": "ComicRelief/ComicRelief-Bold.ttf",
+      "Regular": "ComicRelief/ComicRelief-Regular.ttf"
+    }
+  },
+  "Montserrat": {
+    "langs": [
+      "en",
+      "ru",
+      "uk",
+      "de",
+      "fr",
+      "pt",
+      "it",
+      "es",
+      "pl",
+      "sv",
+      "hu"
+    ],
+    "variant_langs": {
+      "Black": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Black Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Bold Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Bold Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Light": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Light Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Light": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Light Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Medium": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Medium Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Regular": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Semi Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Semi Bold Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Thin": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Thin Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ]
+    },
+    "variants": {
+      "Black": "Montserrat/Montserrat-Black.ttf",
+      "Black Italic": "Montserrat/Montserrat-BlackItalic.ttf",
+      "Bold": "Montserrat/Montserrat-Bold.ttf",
+      "Bold Italic": "Montserrat/Montserrat-BoldItalic.ttf",
+      "Extra Bold": "Montserrat/Montserrat-ExtraBold.ttf",
+      "Extra Bold Italic": "Montserrat/Montserrat-ExtraBoldItalic.ttf",
+      "Extra Light": "Montserrat/Montserrat-ExtraLight.ttf",
+      "Extra Light Italic": "Montserrat/Montserrat-ExtraLightItalic.ttf",
+      "Italic": "Montserrat/Montserrat-Italic.ttf",
+      "Light": "Montserrat/Montserrat-Light.ttf",
+      "Light Italic": "Montserrat/Montserrat-LightItalic.ttf",
+      "Medium": "Montserrat/Montserrat-Medium.ttf",
+      "Medium Italic": "Montserrat/Montserrat-MediumItalic.ttf",
+      "Regular": "Montserrat/Montserrat-Regular.ttf",
+      "Semi Bold": "Montserrat/Montserrat-SemiBold.ttf",
+      "Semi Bold Italic": "Montserrat/Montserrat-SemiBoldItalic.ttf",
+      "Thin": "Montserrat/Montserrat-Thin.ttf",
+      "Thin Italic": "Montserrat/Montserrat-ThinItalic.ttf"
+    }
+  },
+  "Mulish": {
+    "langs": [
+      "en",
+      "ru",
+      "uk",
+      "de",
+      "fr",
+      "pt",
+      "it",
+      "es",
+      "pl",
+      "sv",
+      "hu"
+    ],
+    "variant_langs": {
+      "Black": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Black Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Bold Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Bold Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Light": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Light Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Light": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Light Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Medium": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Medium Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Regular": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Semi Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Semi Bold Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ]
+    },
+    "variants": {
+      "Black": "Mulish/Mulish-Black.ttf",
+      "Black Italic": "Mulish/Mulish-BlackItalic.ttf",
+      "Bold": "Mulish/Mulish-Bold.ttf",
+      "Bold Italic": "Mulish/Mulish-BoldItalic.ttf",
+      "Extra Bold": "Mulish/Mulish-ExtraBold.ttf",
+      "Extra Bold Italic": "Mulish/Mulish-ExtraBoldItalic.ttf",
+      "Extra Light": "Mulish/Mulish-ExtraLight.ttf",
+      "Extra Light Italic": "Mulish/Mulish-ExtraLightItalic.ttf",
+      "Italic": "Mulish/Mulish-Italic.ttf",
+      "Light": "Mulish/Mulish-Light.ttf",
+      "Light Italic": "Mulish/Mulish-LightItalic.ttf",
+      "Medium": "Mulish/Mulish-Medium.ttf",
+      "Medium Italic": "Mulish/Mulish-MediumItalic.ttf",
+      "Regular": "Mulish/Mulish-Regular.ttf",
+      "Semi Bold": "Mulish/Mulish-SemiBold.ttf",
+      "Semi Bold Italic": "Mulish/Mulish-SemiBoldItalic.ttf"
+    }
+  },
+  "NotoNaskhArabic": {
+    "langs": [
+      "ar"
+    ],
+    "variant_langs": {
+      "Regular": [
+        "ar"
+      ]
+    },
+    "variants": {
+      "Regular": "NotoNaskhArabic.ttf"
+    }
+  },
+  "NotoSansDevanagari": {
+    "langs": [
+      "hi"
+    ],
+    "variant_langs": {
+      "Regular": [
+        "hi"
+      ]
+    },
+    "variants": {
+      "Regular": "NotoSansDevanagari/NotoSansDevanagari.ttf"
+    }
+  },
+  "NotoSansHebrew": {
+    "langs": [
+      "he"
+    ],
+    "variant_langs": {
+      "Regular": [
+        "he"
+      ]
+    },
+    "variants": {
+      "Regular": "NotoSansHebrew.ttf"
+    }
+  },
+  "NotoSansJP": {
+    "langs": [
+      "ja"
+    ],
+    "variant_langs": {
+      "Bold": [
+        "ja"
+      ],
+      "Regular": [
+        "ja"
+      ]
+    },
+    "variants": {
+      "Bold": "NotoSansJP/NotoSansJP-Bold.otf",
+      "Regular": "NotoSansJP/NotoSansJP-Regular.otf"
+    }
+  },
+  "NotoSansKR": {
+    "langs": [
+      "ko"
+    ],
+    "variant_langs": {
+      "Bold": [
+        "ko"
+      ],
+      "Regular": [
+        "ko"
+      ]
+    },
+    "variants": {
+      "Bold": "NotoSansKR/NotoSansKR-Bold.otf",
+      "Regular": "NotoSansKR/NotoSansKR-Regular.otf"
+    }
+  },
+  "NotoSansSC": {
+    "langs": [
+      "zh"
+    ],
+    "variant_langs": {
+      "Bold": [
+        "zh"
+      ],
+      "Regular": [
+        "zh"
+      ]
+    },
+    "variants": {
+      "Bold": "NotoSansSC/NotoSansSC-Bold.otf",
+      "Regular": "NotoSansSC/NotoSansSC-Regular.otf"
+    }
+  },
+  "Oswald": {
+    "langs": [
+      "en",
+      "ru",
+      "uk",
+      "de",
+      "fr",
+      "pt",
+      "it",
+      "es",
+      "pl",
+      "sv",
+      "hu"
+    ],
+    "variant_langs": {
+      "Regular": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ]
+    },
+    "variants": {
+      "Regular": "Oswald/Oswald.ttf"
+    }
+  },
+  "PTSerif": {
+    "langs": [
+      "en",
+      "ru",
+      "uk",
+      "de",
+      "fr",
+      "pt",
+      "it",
+      "es",
+      "pl",
+      "sv",
+      "hu"
+    ],
+    "variant_langs": {
+      "Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Bold Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Italic": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Regular": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ]
+    },
+    "variants": {
+      "Bold": "PTSerif/PT_Serif-Web-Bold.ttf",
+      "Bold Italic": "PTSerif/PT_Serif-Web-BoldItalic.ttf",
+      "Italic": "PTSerif/PT_Serif-Web-Italic.ttf",
+      "Regular": "PTSerif/PT_Serif-Web-Regular.ttf"
+    }
+  },
+  "Raleway": {
+    "langs": [
+      "en",
+      "ru",
+      "uk",
+      "de",
+      "fr",
+      "pt",
+      "it",
+      "es",
+      "pl",
+      "sv",
+      "hu"
+    ],
+    "variant_langs": {
+      "Black": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Black Italic": [
+        "en",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Bold Italic": [
+        "en",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Bold Italic": [
+        "en",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Light": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Extra Light Italic": [
+        "en",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Italic": [
+        "en",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Light": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Light Italic": [
+        "en",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Medium": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Medium Italic": [
+        "en",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Regular": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Semi Bold": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Semi Bold Italic": [
+        "en",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Thin": [
+        "en",
+        "ru",
+        "uk",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ],
+      "Thin Italic": [
+        "en",
+        "de",
+        "fr",
+        "pt",
+        "it",
+        "es",
+        "pl",
+        "sv",
+        "hu"
+      ]
+    },
+    "variants": {
+      "Black": "Raleway/Raleway-Black.ttf",
+      "Black Italic": "Raleway/Raleway-Black-Italic.ttf",
+      "Bold": "Raleway/Raleway-Bold.ttf",
+      "Bold Italic": "Raleway/Raleway-Bold-Italic.ttf",
+      "Extra Bold": "Raleway/Raleway-ExtraBold.ttf",
+      "Extra Bold Italic": "Raleway/Raleway-ExtraBold-Italic.ttf",
+      "Extra Light": "Raleway/Raleway-ExtraLight.ttf",
+      "Extra Light Italic": "Raleway/Raleway-ExtraLight-Italic.ttf",
+      "Italic": "Raleway/Raleway-Regular-Italic.ttf",
+      "Light": "Raleway/Raleway-Light.ttf",
+      "Light Italic": "Raleway/Raleway-Light-Italic.ttf",
+      "Medium": "Raleway/Raleway-Medium.ttf",
+      "Medium Italic": "Raleway/Raleway-Medium-Italic.ttf",
+      "Regular": "Raleway/Raleway-Regular.ttf",
+      "Semi Bold": "Raleway/Raleway-SemiBold.ttf",
+      "Semi Bold Italic": "Raleway/Raleway-SemiBold-Italic.ttf",
+      "Thin": "Raleway/Raleway-Thin.ttf",
+      "Thin Italic": "Raleway/Raleway-Thin-Italic.ttf"
+    }
+  }
+}
