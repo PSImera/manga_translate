@@ -46,7 +46,7 @@ function renderBubblePanel() {
   el.bpBody.classList.toggle("hidden", !b);
   el.bpEmpty.classList.toggle("hidden", !!b);
   const page = state.pages[state.active];
-  if (!b) { el.bpNum.textContent = I18N.t("texts.dash"); closeColorPicker(); return; }
+  if (!b) { el.bpNum.textContent = I18N.t("texts.dash"); if (_cpAnchor === el.bpColorBtn) closeColorPicker(); return; }
   const idx = page ? page.bubbles.indexOf(b) : -1;
   el.bpNum.textContent = idx >= 0 ? `#${globalBubbleIndex(page, idx) + 1}` : I18N.t("texts.dash");
   // show EFFECTIVE values (individual override or inherited default)
