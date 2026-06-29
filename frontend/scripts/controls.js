@@ -12,7 +12,7 @@ function maskFields(b) {
     center_radius: bubbleParam(b, "centerRadius") / 100,
     // inpaint context as a fraction of bubble size (same as the dashed expand border);
     // the inpainter uses it, /mask/boxes preview ignores it (no inpaint there)
-    pad: bubbleParam(b, "inpaintPad") / 100,
+    pad: bubbleParam(b, "showExpand") ? bubbleParam(b, "inpaintPad") / 100 : 0,
   };
 }
 
@@ -131,6 +131,7 @@ function initControls() {
   el.maskExpand.value = s.maskExpand; el.maskExpandOut.textContent = `${s.maskExpand}%`;
   el.showExpand.classList.toggle("active", s.showExpand);
   el.inpaintPad.value = s.inpaintPad; el.inpaintPadOut.textContent = `${s.inpaintPad}%`;
+  el.inpaintPad.disabled = !s.showExpand;
   // «⬚ Frames» set: restore expanded/collapsed state
   el.frameTools.classList.toggle("hidden", !s.showFrames);
   el.frameToggle.classList.toggle("active", s.showFrames);
@@ -188,6 +189,7 @@ function initControls() {
   });
   el.showExpand.addEventListener("click", () => {
     s.showExpand = !s.showExpand; el.showExpand.classList.toggle("active", s.showExpand);
+    el.inpaintPad.disabled = !s.showExpand;
     saveSettings(); renderExpand(); syncBubblePanel();
   });
   el.inpaintPad.addEventListener("input", () => {

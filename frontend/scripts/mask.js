@@ -5,7 +5,7 @@ function renderExpand() {
   if (!expandLayer) return;
   expandLayer.destroyChildren();
   const page = state.pages[state.active];
-  if (page && page.viewMode !== "result" && state.settings.showFrames) {
+  if (page && state.settings.showFrames) {
     page.bubbles.forEach((b) => {
       if (!bubbleParam(b, "showExpand")) return;
       // inpaint context size — its own parameter, independent of mask detection settings

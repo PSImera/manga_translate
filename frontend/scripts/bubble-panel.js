@@ -63,7 +63,9 @@ function renderBubblePanel() {
   el.bpCenterRadius.value = cr; el.bpCenterRadiusOut.textContent = `${cr}%`;
   const ip = bubbleParam(b, "inpaintPad");
   el.bpInpaintPad.value = ip; el.bpInpaintPadOut.textContent = `${ip}%`;
-  el.bpShowExpand.checked = !!bubbleParam(b, "showExpand");
+  const showExp = !!bubbleParam(b, "showExpand");
+  el.bpShowExpand.checked = showExp;
+  el.bpInpaintPad.disabled = !showExp;
   // inpaint mask for the bubble is on by default (master toggle is «🖌 Mask»)
   el.bpShowMask.checked = b.showMask !== undefined ? !!b.showMask : true;
   el.bpColorBtn.style.background = bubbleParam(b, "color");
@@ -185,7 +187,9 @@ function initBubblePanel() {
   });
   el.bpShowExpand.addEventListener("change", () => {
     const b = selectedBubble(); if (!b) return;
-    b.showExpand = el.bpShowExpand.checked; updateBpRow(b, "showExpand"); renderExpand();
+    b.showExpand = el.bpShowExpand.checked;
+    el.bpInpaintPad.disabled = !b.showExpand;
+    updateBpRow(b, "showExpand"); renderExpand();
     persistPage(state.pages[state.active]);
   });
   el.bpShowMask.addEventListener("change", () => {
