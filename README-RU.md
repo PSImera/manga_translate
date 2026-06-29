@@ -178,6 +178,8 @@ LLM_CONTEXT_PAGES=8
 .venv\Scripts\python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000
 ```
 
+На Windows можно просто дважды кликнуть **`start.bat`** в корне репозитория.
+
 Открыть **http://127.0.0.1:8000** — веб-интерфейс раздаётся тем же процессом.
 
 ---

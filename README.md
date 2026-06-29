@@ -176,6 +176,8 @@ LLM_CONTEXT_PAGES=8
 .venv\Scripts\python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000
 ```
 
+On Windows you can also just double-click **`start.bat`** in the repo root.
+
 Open **http://127.0.0.1:8000** — the web UI is served by the same process.
 
 ---
