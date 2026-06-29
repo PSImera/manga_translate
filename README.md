@@ -78,8 +78,7 @@ uv sync
 cp .env.example .env
 ```
 
-> manga-ocr, EasyOCR and LaMa models are downloaded automatically on first run.
-> The detector weights (`models/yolo/bubbles_detect_v2.pt`) are included in the repo.
+> manga-ocr, EasyOCR, LaMa and the bubble detector weights are downloaded automatically on first run.
 
 ---
 
@@ -162,8 +161,8 @@ INPAINT_MIN_AREA=4
 INPAINT_CENTER_PRIORITY=true
 INPAINT_CENTER_RADIUS=0.10
 
-# Detector weights
-YOLO_WEIGHTS=models/yolo/bubbles_detect_v2.pt
+# Detector weights (downloaded automatically on first run)
+# YOLO_WEIGHTS=models/bubbles_detect/bubbles_detect.pt
 
 # LLM context window for "Translate All" (last N pages; 0 = unlimited)
 LLM_CONTEXT_PAGES=8
@@ -236,4 +235,8 @@ The detector was trained on a combined dataset:
 - [manga.v4i (Roboflow)](https://universe.roboflow.com/manga-wtdm0/manga-mvbxx) — 1304/189/103 train/valid/test pages, single class `location-of-bubbles`.
 - [1079 additional pages](https://drive.google.com/drive/folders/198OVEXLxY9hyhC0bdALxtR66BtBHp_Oj?usp=sharing) from [DLS Manga Translator](https://github.com/ikefir34/DLS_Manga_Translator) — pre-labeled with v1 (trained on the first dataset) → manually corrected in CVAT → merged → fine-tuned as v2.
 
-Training scripts and reports are in `training/` and are not needed to run the app.
+Training scripts are in `training/` and are not needed to run the app.
+
+The combined dataset is published on HuggingFace: [PSImera/manga_bubbles_detect](https://huggingface.co/datasets/PSImera/manga_bubbles_detect).
+
+The trained model weights are published on HuggingFace: [PSImera/manga_bubbles_detect](https://huggingface.co/PSImera/manga_bubbles_detect) — downloaded automatically on first run.

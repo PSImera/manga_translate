@@ -80,7 +80,7 @@ copy .env.example .env
 ```
 
 > Модели manga-ocr, EasyOCR и LaMa скачиваются автоматически при первом запуске.
-> Веса детектора (`models/yolo/bubbles_detect_v2.pt`) уже в репозитории.
+> manga-ocr, EasyOCR, LaMa и веса детектора пузырей скачиваются автоматически при первом запуске.
 
 ---
 
@@ -164,7 +164,7 @@ INPAINT_CENTER_PRIORITY=true
 INPAINT_CENTER_RADIUS=0.10
 
 # Детектор
-YOLO_WEIGHTS=models/yolo/bubbles_detect_v2.pt
+# YOLO_WEIGHTS=models/bubbles_detect/bubbles_detect.pt
 
 # Контекст LLM при «Перевести всё» (последние N страниц; 0 = без лимита)
 LLM_CONTEXT_PAGES=8
@@ -237,4 +237,8 @@ Inpaint            маска штрихов по Otsu + LaMa по кропам 
 - [manga.v4i (Roboflow)](https://universe.roboflow.com/manga-wtdm0/manga-mvbxx) — 1304/189/103 страниц train/valid/test, 1 класс `location-of-bubbles`.
 - [1079 дополнительных страниц](https://drive.google.com/drive/folders/198OVEXLxY9hyhC0bdALxtR66BtBHp_Oj?usp=sharing) из репозитория [DLS Manga Translator](https://github.com/ikefir34/DLS_Manga_Translator) — предразметка моделью v1, обученной на первом датасете → CVAT разметка руками → объединение → дообучение модели до версии v2.
 
-Скрипты и отчёты обучения — в `training/` (для запуска приложения не нужны).
+Скрипты обучения — в `training/` (для запуска приложения не нужны).
+
+Объединённый датасет опубликован на HuggingFace: [PSImera/manga_bubbles_detect](https://huggingface.co/datasets/PSImera/manga_bubbles_detect).
+
+Веса обученной модели опубликованы на HuggingFace: [PSImera/manga_bubbles_detect](https://huggingface.co/PSImera/manga_bubbles_detect) — скачиваются автоматически при первом запуске.
