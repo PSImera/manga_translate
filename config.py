@@ -64,7 +64,7 @@ INPAINT_MIN_AREA = 4
 INPAINT_CENTER_PRIORITY = True
 INPAINT_CENTER_RADIUS = 0.10
 
-YOLO_WEIGHTS = Path(os.getenv("YOLO_WEIGHTS", "models/yolo/bubbles_detect_v1.pt"))
+YOLO_WEIGHTS = Path(os.getenv("YOLO_WEIGHTS", "models/bubbles_detect/bubbles_detect.pt"))
 if not YOLO_WEIGHTS.is_absolute():
     YOLO_WEIGHTS = ROOT_DIR / YOLO_WEIGHTS
 

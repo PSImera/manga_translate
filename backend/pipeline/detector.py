@@ -51,13 +51,28 @@ class BubbleDetector:
     def model(self):
         if self._model is None:
             if not self.weights.exists():
-                raise FileNotFoundError(
-                    f"YOLO weights not found: {self.weights}. "
-                    f"Train the detector first (training/train_yolo.py)."
-                )
+                self._download_weights()
             from ultralytics import YOLO
             self._model = YOLO(str(self.weights))
         return self._model
+
+    def _download_weights(self) -> None:
+        """Download weights from HuggingFace if not found locally."""
+        from backend.pipeline import progress
+        try:
+            from huggingface_hub import hf_hub_download
+            progress.status("Downloading detector weights from HuggingFace…")
+            self.weights.parent.mkdir(parents=True, exist_ok=True)
+            hf_hub_download(
+                repo_id="PSImera/manga_bubbles_detect",
+                filename=self.weights.name,
+                local_dir=str(self.weights.parent),
+            )
+        except Exception as e:
+            raise FileNotFoundError(
+                f"YOLO weights not found: {self.weights}. "
+                f"Auto-download from HuggingFace also failed: {e}"
+            )
 
     def ensure(self) -> None:
         """Load YOLO weights. Call on the main thread before offloading to the pool."""

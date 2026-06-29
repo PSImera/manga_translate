@@ -28,6 +28,7 @@ dependencies = [
     "nvidia-cudnn-cu12>=9.9,<9.10 ; sys_platform == 'win32'",
     "manga-ocr>=0.1.10",
     "transformers<5",
+    "huggingface-hub>=0.27",
     "pypdfium2>=5.10.1",
     # OCR for European languages (Japanese stays on manga-ocr)
     "easyocr==1.7.2",

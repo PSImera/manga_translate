@@ -1,0 +1,3 @@
+[submodule "models/bubbles_detect"]
+	path = models/bubbles_detect
+	url = https://huggingface.co/PSImera/manga_bubbles_detect
