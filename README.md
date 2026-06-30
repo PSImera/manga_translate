@@ -54,9 +54,12 @@ Everything the auto-pipeline does can be overridden:
 ### Requirements
 
 - Python 3.10
-- NVIDIA GPU with CUDA 12.6+ (for torch, manga-ocr, EasyOCR, LaMa). CPU-only is possible but slow — replace the torch index in `pyproject.toml` with a CPU build.
 - [uv](https://docs.astral.sh/uv/) — package manager.
 - An external LLM server (see below).
+- **GPU** (optional but strongly recommended):
+  - **Windows / Linux** — NVIDIA GPU with CUDA 12.6+. `uv sync` pulls the CUDA torch build automatically.
+  - **macOS Apple Silicon** — MPS acceleration is used automatically. `uv sync` pulls the standard PyPI torch build (no manual edits needed).
+  - **CPU-only** — works on any platform, just slow.
 
 ### Steps
 
