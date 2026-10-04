@@ -16,8 +16,6 @@
 Всё работает **нативно** (Python + torch, CUDA). Внешний — только LLM-сервер (любой
 OpenAI-совместимый эндпоинт). Docker для самого приложения не нужен.
 
-Учебный проект для [Deep Learning School](https://github.com/DeepLearningSchool).
-
 ---
 
 ![UI](images/UI.png)
@@ -235,7 +233,8 @@ Inpaint            маска штрихов по Otsu + LaMa по кропам 
 
 ---
 
-> [Видео презентация проекта](https://youtu.be/QMw1K0ZmnNk?si=mGWYJV8vfW0rq4P7)
+> Это изначально был финальный учебный проект для [Deep Learning School](https://github.com/DeepLearningSchool).
+  [Видео презентация проекта](https://youtu.be/QMw1K0ZmnNk?si=mGWYJV8vfW0rq4P7)
 
 ## Датасеты и обучение детектора
 

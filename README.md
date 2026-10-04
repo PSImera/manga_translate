@@ -15,8 +15,6 @@ Neural-network manga translation pipeline: bubble detection → OCR → text rem
 
 Everything runs **natively** (Python + torch, CUDA). The only external dependency is an LLM server (any OpenAI-compatible endpoint). No Docker needed for the app itself.
 
-A learning project for [Deep Learning School](https://github.com/DeepLearningSchool).
-
 ---
 
 ![UI](images/UI.png)
@@ -232,6 +230,8 @@ Place `.ttf`/`.otf` files in `backend/assets/fonts/`. A single file = a font fam
 ```
 
 ---
+
+> It was final project for [Deep Learning School](https://github.com/DeepLearningSchool) on the start.
 
 ## Training data
 
